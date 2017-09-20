@@ -1,15 +1,32 @@
-## Put comments here that give an overall description of what your
-## functions do
+## My first function makes a special matrix of inputed matrix that caches its different forms
+## the second function either finds if it already has a cached inverse of a the matrix and prints out message/ inverse if does
+## if it doesn't then calculates the inverse, sets caches for inverse and gives you the inverse
 
-## Write a short comment describing this function
+## makes a special matrix with caches for inverse
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  inv <- NULL
+  set <- function(y){
+    x<<-y
+    inv <<- NULL
+  }
+  get <- function() x
+  setinv <- function(inverse) inv<<- inverse
+  getinv <- function() inv
+  list(set = set, get = get, setinv = setinv, getinv = getinv)
 }
 
 
-## Write a short comment describing this function
+## either finds inverse of matrix from cache or calculates it and caches.
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cachesolve <- function(x, ...) {
+  inv <- x$getinv()
+  if(!is.null(inv)) {
+    message("getting cached data")
+    return(inv)
+  }
+  data<- x$get()
+  inv<- solve(data, ...)
+  x$setinv(inv)
+  inv
 }
